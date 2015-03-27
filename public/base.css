@@ -1,0 +1,219 @@
+#chat {
+  /* struct */
+  position:absolute;
+  right:0;
+  width:350px;
+  top:0; bottom:0;
+  overflow:hidden;
+  /* style */
+  background: #E1E1E1;
+  font-family: sans-serif;
+}
+
+#chat-header {
+  /* struct */
+  width:100%;
+  height:40px;
+  padding:none;
+  position:relative;
+  /* style */
+  background:#333;
+}
+
+#chat-header-info {
+  /* struct */
+  position:absolute;
+  left:50px; top:0; bottom:0;
+  /* border:red thin solid; */
+  padding-top:9px;
+  /* style */
+  color:#E1E1E1;
+  font-size: 18px;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+
+#chat-header-icon {
+  /* struct */
+  position:absolute;
+  left:0; top:0; bottom:0;
+  width:50px;
+  /* style */
+  color:#E1E1E1;
+  /* border:red thin solid; */
+}
+
+#chat-header-icon i {
+  margin-left: 13px;
+  margin-top: 7px;
+  font-size: 24px;
+}
+
+#chat-log {
+  /* struct */
+  position:absolute;
+  width:100%;
+  top:40px;
+  bottom:40px;
+  overflow:auto;
+  padding:
+  /* style */
+  background:#d9d9d9;  
+}
+
+#chat-message {
+  /* struct */
+  position:absolute;
+  width:100%;
+  height:40px;
+  bottom:0;
+  /* style */
+  background:#f4f4f4;    
+}
+
+#chat-message-send {
+  /* struct */
+  position:absolute;
+  padding:0;
+  margin:0;
+  top:0; right:0;
+  height:100%;
+  width:40px;
+  /* style */
+  border:none;
+  background:#7A7A7A;
+  color:white;
+}
+
+#chat-message-input {
+  /* struct */
+  position:absolute;
+  top:0; left:0;
+  bottom:0; right: 40px;
+  margin:0;
+  padding:0 7px;
+  /* style */
+  font-size: 12px;
+  border:none;
+  background:none;
+}
+
+.chat-bubble {
+  /* struct */
+  max-width: 95%;
+  min-height: 20px;
+  margin: 7px auto;
+  position: relative;
+  overflow:auto;
+  /* style */
+  
+}
+
+.chat-bubble-footer {
+  /* struct */
+  height:15px;
+  position:absolute;
+  right:0;
+  left:0;
+  bottom: 0;
+  padding: 0 5px;
+  box-sizing: border-box;
+  /* style */
+  background:none;
+  font-size:11px;
+  color:#aaa;
+}
+/*
+.chat-bubble-footer.chat-bubble-self {
+  text-align:right;
+}
+
+.chat-bubble-footer.chat-bubble-friend {
+  text-align:left;
+}
+
+.chat-bubble-text.chat-bubble-friend {
+  text-align:right;
+}*/
+
+.chat-bubble-text {
+  /* struct */
+  /* style */
+  font-size: px;
+}
+
+.chat-bubble-main {
+  /* struct */
+  margin-right: 47px;
+  float:right;
+  padding:12px 10px;
+  box-sizing:border-box;
+  min-height:40px;
+  border-radius: 10px 0px 10px 10px; 
+  /* style */
+  background:white;
+  font-size: 14px;
+  color:#555;
+}
+
+.chat-bubble-aside {
+  /* struct */
+  position:absolute;
+  right:0px;
+  height:40px;
+  width:40px;
+  /* style */
+  background:#f4f4f4;
+  background-image: url("http://img2.wikia.nocookie.net/__cb20140105061757/monsterhunter/images/9/9a/Sword_and_Shield_Icon_Red.png");
+  background-position:center;
+  background-repeat: no-repeat;
+  background-size: 40px;
+  border-radius: 3px; 
+  
+}
+
+.chat-friend .chat-bubble-aside {
+  left:0;
+}
+
+.chat-friend .chat-bubble-main {
+  float:left;
+  margin-left: 47px;
+  margin-right:0;
+  border-radius: 0 10px 10px 10px; 
+}
+
+.chat-bubble-info {
+  /* struct */
+  float:right;
+  margin-bottom:-5px;
+  /* style */
+  font-size:10px;
+  color:#C5C5C5;
+}
+
+.chat-friend .chat-bubble-info {
+  /* struct */
+  float:right;
+  /* style */
+}
+
+.chat-bubble-message {
+  /* struct */
+  margin-bottom:5px;
+  float:left;
+  /* style */
+}
+
+.chat-status {
+  /* struct */
+  max-width: 95%;
+  margin: 7px auto;
+  position: relative;
+  /* style */
+  text-align:center;
+  color:#999;
+  font-size:10px;
+  
+  
+}

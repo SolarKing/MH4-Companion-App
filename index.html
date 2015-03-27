@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+<head>
+  <title>MH4 Companion App</title>
+  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="base.css">
+</head>
+<body>
+  <div id="chat">
+    <header id="chat-header">
+      <div id="chat-header-icon">
+        <i class="fa fa-envelope"></i>
+        <div>
+          <div id="chat-header-info">
+            Chat
+          </div>
+        </header>
+        <main id="chat-log">
+
+    <!-- <div class="chat-bubble chat-friend">
+      <main class="chat-bubble-main">
+        <div class="chat-bubble-message">
+          Testing the input test whateraweasdffkkdfj akskkdf a skkd jlfllakejjf alskkd fkkajj 
+        </div>
+        <br/>
+        <div class="chat-bubble-info">
+          Chat - 9:45 PM
+        </div>
+       </main>
+       <aside class="chat-bubble-aside"> 
+       </aside>
+    </div>
+    
+    <div class="chat-status">
+      Apollo Joined, Say Hi!
+    </div>
+    
+     <div class="chat-bubble">
+      <main class="chat-bubble-main">
+        
+        <div class="chat-bubble-message">
+          Testing the input test whateraweasdffkkdfj akskkdf a skkd jlfllakejjf alskkd fkkajj 
+        </div>
+        <br/>
+        <div class="chat-bubble-info">
+          Apollo - 9:45 PM
+        </div>
+       </main>
+       <aside class="chat-bubble-aside">  
+       </aside>
+     </div> -->
+
+
+   </main>
+   <footer id="chat-message">
+    <form>
+      <input id="chat-message-input" type="text" placeholder="Say something..."/>
+      <button id="chat-message-send"><i class="fa fa-paper-plane fa-lg"></i></button>
+    </form>
+  </footer>
+</div>
+
+<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+<script type="text/javascript">
+  
+</script>
+<script type="text/javascript">
+  var sound1 = document.createElement('audio');
+  sound1.setAttribute('src', 'Nyah.wav');
+  sound1.setAttribute('autoplay', 'autoplay');
+
+  var sound2 = document.createElement('audio');
+  sound2.setAttribute('src', 'Gather.wav');
+  sound2.setAttribute('autoplay', 'autoplay');
+    //sound1.load()
+
+    $.get();
+
+    sound1.addEventListener("load", function() {
+      sound1.play();
+    }, true);
+
+    sound1.addEventListener("load", function() {
+      sound2.play();
+    }, true);
+
+    var socket = io();
+    var socketid;
+    socket.on("message", function(id) {
+      socketid = id;
+      console.log(socketid);
+    });
+
+    $('form').submit(function() {
+      var data = {
+        name: "whatever",
+        message: $("#chat-message-input").val(),
+        id: socketid
+      }
+      socket.emit('chat message', data);
+      $("#chat-message-input").val('');
+      return false;
+    });
+
+    socket.on('chat message', function(data) {
+      var date = new Date()
+      var hh = date.getHours();
+      var mm = date.getMinutes();
+      var html = '';
+      console.log(data.id, "vs", socketid);
+      if (data.id != socketid) {
+        html += '<div class="chat-bubble chat-friend">';  
+      } else {
+        html += '<div class="chat-bubble">';  
+      }
+      html += '<main class="chat-bubble-main"><div class="chat-bubble-message">';
+      html += data.message;
+      html += '</div><br/><div class="chat-bubble-info">';
+      html += data.name + ' - ' + hh + ':' + mm;
+      html += '</div>';
+      html += '</main><aside class="chat-bubble-aside"></aside></div>';
+      if (data.id != socketid) {
+        sound1.play();
+      } else {
+        sound2.play();
+      }
+      $('#chat-log').append(html);
+      $('#chat-log').animate({ 
+        scrollTop: $('#chat-log').get(0).scrollHeight
+      }, 1000);
+    });
+    </script>
+  </body>
+</html>
