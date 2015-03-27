@@ -85,7 +85,7 @@
       sound2.play();
     }, true);
 
-    var socket = io();
+    var socket = io.connect("http://test-mh4companion.rhcloud.com:8000");
     var socketid;
     socket.on("message", function(id) {
       socketid = id;
