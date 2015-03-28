@@ -85,7 +85,15 @@
       sound2.play();
     }, true);
 
-    var socket = io.connect("http://test-mh4companion.rhcloud.com:8000");
+    var username;
+    var socket;
+
+    // insert username input handling here (modal?)
+
+    if (username !== undefined && username !== null) {
+      socket = io.connect("http://test-mh4companion.rhcloud.com:8000");
+    }
+
     var socketid;
     socket.on("message", function(id) {
       socketid = id;
@@ -97,6 +105,9 @@
         name: "whatever",
         message: $("#chat-message-input").val(),
         id: socketid
+      }
+      if (data.message === "" || data.message === undefined || data.message === null) {
+        return false;
       }
       socket.emit('chat message', data);
       $("#chat-message-input").val('');
