@@ -104,25 +104,25 @@ function timeOfDay(hour) {
 
   var sound1 = document.createElement('audio');
   sound1.setAttribute('src', 'Nyah.wav');
-  sound1.setAttribute('autoplay', 'autoplay');
+  // sound1.setAttribute('autoplay', 'autoplay');
 
   var sound2 = document.createElement('audio');
   sound2.setAttribute('src', 'Gather.wav');
-  sound2.setAttribute('autoplay', 'autoplay');
+  // sound2.setAttribute('autoplay', 'autoplay');
     //sound1.load()
 
     $.get();
 
-    sound1.addEventListener("load", function() {
-      sound1.play();
-    }, true);
+    // sound1.addEventListener("load", function() {
+    //   sound1.play();
+    // }, true);
 
-    sound1.addEventListener("load", function() {
-      sound2.play();
-    }, true);
+    // sound1.addEventListener("load", function() {
+    //   sound2.play();
+    // }, true);
 
     var socket = io.connect("http://test-mh4companion.rhcloud.com:8000");
-    
+
     var loginInfo = {
       name: "",
       id: ""
@@ -156,11 +156,17 @@ function timeOfDay(hour) {
     });
 
     socket.on('chat message', function(data) {
+      if ((data.message == "Nyah" || data.message == "nyah" || data.message == "nya" || data.message == "Nya")) {
+        sound1.play();
+      } else if (data.id != loginInfo.id) {
+        sound2.play();
+      }
+
       var date = new Date()
       var hh = date.getHours();
       var mm = date.getMinutes();
       var html = '';
-      console.log(data.id, "vs", loginInfo.id);
+
       if (data.id != loginInfo.id) {
         html += '<div class="chat-bubble chat-friend">';  
       } else {
@@ -172,11 +178,7 @@ function timeOfDay(hour) {
       html += data.name + ' - ' + hour(hh) + ':' + addZero(mm) + " " + timeOfDay(hh);
       html += '</div>';
       html += '</main><aside class="chat-bubble-aside"></aside></div>';
-      if (data.id != loginInfo.id) {
-        sound1.play();
-      } else {
-        sound2.play();
-      }
+      
       $('#chat-log').append(html);
       $('#chat-log').animate({ 
         scrollTop: $('#chat-log').get(0).scrollHeight
