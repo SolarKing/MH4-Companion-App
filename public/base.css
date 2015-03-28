@@ -214,6 +214,47 @@
   text-align:center;
   color:#999;
   font-size:10px;
-  
-  
+}
+
+#chat-login {
+  /* struct */
+  position: absolute;
+  top:0; bottom: 0;
+  left:0; right:0;
+
+  z-index: 500;
+
+  /*display:none;*/
+
+  /* style */
+  background:rgba(0,0,0,.8);
+}
+
+#chat-login h1 {
+  /* struct */
+  text-align: center;
+  /* style */
+  color:white;
+}
+
+#chat-login-input {
+  /* struct */
+  display:block;
+  width:90%;
+  padding:5px;
+  margin:0 auto;
+  /* style */
+  font-size: 24px;
+}
+
+#chat-login-submit {
+  /* struct */
+  display:block;
+  width:90%;
+  margin:15px auto;
+  /* style */
+  font-size: 24px;
+  border:none;
+  border-radius:5px;
+
 }

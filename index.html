@@ -7,15 +7,25 @@
 </head>
 <body>
   <div id="chat">
+
+    <div id="chat-login">
+      <h1>Please Enter a Name</h1>
+      <form action="">
+        <input id="chat-login-input" type="text">
+        <button id="chat-login-submit">Send</button>
+      </form>
+    </div>
+
     <header id="chat-header">
       <div id="chat-header-icon">
         <i class="fa fa-envelope"></i>
-        <div>
-          <div id="chat-header-info">
-            Chat
-          </div>
-        </header>
-        <main id="chat-log">
+      </div>
+      <div id="chat-header-info">
+        Chat
+      </div>
+    </header>
+
+    <main id="chat-log">
 
     <!-- <div class="chat-bubble chat-friend">
       <main class="chat-bubble-main">
@@ -53,8 +63,8 @@
 
    </main>
    <footer id="chat-message">
-    <form>
-      <input id="chat-message-input" type="text" placeholder="Say something..."/>
+    <form action="">
+      <input id="chat-message-input" type="text" autocomplete="off" placeholder="Say something..."/>
       <button id="chat-message-send"><i class="fa fa-paper-plane fa-lg"></i></button>
     </form>
   </footer>
@@ -62,10 +72,36 @@
 
 <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
 <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <script type="text/javascript">
-  
+
 </script>
 <script type="text/javascript">
+
+function addZero(x) {
+  if (x < 10) {
+    return "0"+x;
+  }
+  return x;
+}
+
+function hour(hour) {
+  if (hour < 13) {
+    if (hour == 0) {
+      return addZero(hour);
+    }
+    return addZero(hour);
+  }
+  return addZero(hour-12);
+}
+
+function timeOfDay(hour) {
+  if (hour < 12) {
+    return "AM";
+  }
+  return "PM";
+}
+
   var sound1 = document.createElement('audio');
   sound1.setAttribute('src', 'Nyah.wav');
   sound1.setAttribute('autoplay', 'autoplay');
@@ -86,17 +122,28 @@
     }, true);
 
     var socket = io.connect("http://test-mh4companion.rhcloud.com:8000");
-    var socketid;
+    var loginInfo = {
+      name: "",
+      id: ""
+    };
     socket.on("message", function(id) {
-      socketid = id;
-      console.log(socketid);
+      loginInfo.id = id;
+      console.log(loginInfo.id);
     });
 
-    $('form').submit(function() {
+    $("#chat-login").children('form').submit(function() {
+      loginInfo.name = $("#chat-login-input").val();
+      socket.emit('login info', loginInfo);
+      $("#chat-login-input").val("");
+      $("#chat-login").hide("fade", 400);
+      return false;
+    });
+
+    $('#chat-message').children('form').submit(function() {
       var data = {
-        name: "whatever",
+        name: loginInfo.name,
         message: $("#chat-message-input").val(),
-        id: socketid
+        id: loginInfo.id
       }
       socket.emit('chat message', data);
       $("#chat-message-input").val('');
@@ -108,8 +155,8 @@
       var hh = date.getHours();
       var mm = date.getMinutes();
       var html = '';
-      console.log(data.id, "vs", socketid);
-      if (data.id != socketid) {
+      console.log(data.id, "vs", loginInfo.id);
+      if (data.id != loginInfo.id) {
         html += '<div class="chat-bubble chat-friend">';  
       } else {
         html += '<div class="chat-bubble">';  
@@ -117,10 +164,10 @@
       html += '<main class="chat-bubble-main"><div class="chat-bubble-message">';
       html += data.message;
       html += '</div><br/><div class="chat-bubble-info">';
-      html += data.name + ' - ' + hh + ':' + mm;
+      html += data.name + ' - ' + hour(hh) + ':' + addZero(mm) + " " + timeOfDay(hh);
       html += '</div>';
       html += '</main><aside class="chat-bubble-aside"></aside></div>';
-      if (data.id != socketid) {
+      if (data.id != loginInfo.id) {
         sound1.play();
       } else {
         sound2.play();
@@ -130,6 +177,6 @@
         scrollTop: $('#chat-log').get(0).scrollHeight
       }, 1000);
     });
-    </script>
-  </body>
+  </script>
+</body>
 </html>
