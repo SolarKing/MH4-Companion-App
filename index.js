@@ -2,8 +2,12 @@ var express = require('express');
 var app = express();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
+var livereload = require('express-livereload');
 
 var port = process.argv[2] || 80;
+
+
+console.log(process.cwd() + "/public");
 
 app.use(express.static('public'));
 
@@ -25,5 +29,12 @@ app.set('port', process.env.OPENSHIFT_NODEJS_PORT || 3000);
 app.set('ipaddr', process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1");  
 
 http.listen(app.get('port'), app.get('ipaddr'), function(){
-  console.log('Express server listening on  IP: ' + app.get('ipaddr') + ' and port ' + app.get('port'));
+  console.log("Express server listening on " + app.get('ipaddr') + ":" + app.get('port'));
+});
+
+livereload(app, config={
+	watchDir: (function() {
+		console.log("livereloaded...");
+		return process.cwd() + "./public";
+	})()
 });
